@@ -102,7 +102,7 @@ const HorizonScanning = ({ scans, handleClick, setScans, modalShow, modalHandleC
                     <div className="row continue-to">
                         <p>When you're ready, continue to</p>
                         <span className="align-middle" id="driver-mapping" onClick={handleClick}>
-                            <img src={LogoDriverMapping} style={{ width: "50px", height: "50px" }} />Driver Mapping
+                            <img src={LogoDriverMapping} style={{ width: "50px", height: "50px" }} id="driver-mapping" />Driver Mapping
                         </span>
                     </div>
                 </div>

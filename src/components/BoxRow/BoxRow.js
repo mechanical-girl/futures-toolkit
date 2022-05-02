@@ -41,4 +41,4 @@ const Box = ({ item, type, onClick }) => {
     )
 }
 
-export { BoxRow };
+export { BoxRow, Box };
