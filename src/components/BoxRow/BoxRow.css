@@ -20,4 +20,9 @@
     height: 50px !important;
     text-transform: uppercase;
     font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }

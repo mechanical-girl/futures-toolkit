@@ -1,0 +1,9 @@
+.dnd-box {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    width: 80px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+}

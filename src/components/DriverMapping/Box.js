@@ -30,13 +30,12 @@ export const Box = ({ id, left, top, hideSourceOnDrag, children }) => {
     return (
         <div
             className="box text-center"
+            id={`scan-${id}`}
             ref={drag}
             style={{ ...style, left, top, width: '100px', height: '90px' }}
             data-testid="box"
         >
             {children}
         </div>
-
-
     )
 }

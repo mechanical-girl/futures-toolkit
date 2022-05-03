@@ -6,10 +6,11 @@ import { ItemTypes } from './ItemTypes.js'
 import backgroundImage from '../../assets/images/driver-mapping-axes.png'
 const styles = {
     width: 800,
-    height: 599,
+    height: 600,
     border: '1px solid black',
     position: 'relative',
     backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: 'cover',
 }
 
 function buildStartingBoxes(scans) {
@@ -38,7 +39,8 @@ export const Container = ({ hideSourceOnDrag, scans }) => {
                         $merge: { left, top },
                     },
                 }),
-            )
+            );
+            console.log(left + " " + top);
         },
         [boxes, setBoxes],
     )
