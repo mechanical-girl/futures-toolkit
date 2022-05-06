@@ -86,9 +86,12 @@ function buildStartingBoxes(scans, coords) {
 }
 
 const DriverMapping = ({ scans, handleClick, modalShow, modalHandleClose, modalThisScan, passedCoords }) => {
-    for (let i in scans) {
-        scans[i]["horizontal"] = 6;
-        scans[i]["vertical"] = 6;
+    const customHandleClick = () => {
+        for (let i in coords) {
+            scans[i]["horizontal"] = Math.round((coords[i]["left"] + 50) / 75);
+            scans[i]["vertical"] = 11 - Math.round((coords[i]["top"] + 45) / 55);
+        }
+        handleClick({ "target": { "id": "visioning" } });
     }
     const [coords, setCoords] = useState([]);
     const [formattedCoords, setFormattedCoords] = useState("");
@@ -163,8 +166,6 @@ const DriverMapping = ({ scans, handleClick, modalShow, modalHandleClose, modalT
             let scanHorizontal = Math.round((coord["left"] + 50) / 75);
             let scanVertical = Math.round((coord["top"] + 45) / 55);
             newFormattedCoords += `${scanTitle}: Certainty of outcome: ${scanHorizontal}, importance of outcome to policy ${11 - scanVertical}<br />`;
-            scans[i]["horizontal"] = scanHorizontal;
-            scans[i]["vertical"] = scanVertical;
         };
         setFormattedCoords(newFormattedCoords);
     }
@@ -185,7 +186,7 @@ const DriverMapping = ({ scans, handleClick, modalShow, modalHandleClose, modalT
                     {parse(formattedCoords)}
                     <div className="continue-to">
                         <p>When you're ready, continue to</p>
-                        <span className="align-middle" id="visioning" onClick={handleClick}>
+                        <span className="align-middle" id="visioning" onClick={customHandleClick}>
                             <img src={LogoVisioning} style={{ width: "50px", height: "50px" }} id="visioning" />Visioning
                         </span>
                     </div>
