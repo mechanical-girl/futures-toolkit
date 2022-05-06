@@ -6,6 +6,7 @@ import '../BoxRow/BoxRow.css';
 import { Pathway } from '../Pathway/Pathway';
 import { HorizonScanning } from '../HorizonScanning/HorizonScanning.js';
 import { DriverMapping } from '../DriverMapping/DriverMapping.js';
+import { Visioning } from '../Visioning/Visioning.js';
 import { ScanModal } from '../Modal/ScanModal.js';
 
 import LogoHorizonScan from '../../assets/images/horizon-scan-logo.png';
@@ -51,12 +52,18 @@ function App() {
       let thisScan = scans[parseInt(scanNumber)];
       console.log(thisScan);
       handleShow(thisScan);
-    } else {
+    } else if (e.target.id == "pathway-start") {
+      setMainView("horizon-scanning");
+    } else if (e.target.id == "visioning") {
+      setMainView("visioning");
+    }
+    else {
       setMainView('landing');
     }
   }
 
   const DemoPathway = {
+    "title": "Pathway Two",
     "business_need": "Creating a shared ambition for the future",
     "aim": "To build a shared aspiration of future success.<br />To create a shared sense of purpose and understanding of the futures task",
     "primary_activities": "Desk research leading to a workshop to determine the vision",
@@ -76,24 +83,10 @@ function App() {
             <span>The Futures Toolkit</span>
           </div>
         </div>
-        <div className="row">
-          <div className="col col-3 text-center" id="horizon-scanning" onClick={handleClick}>
-            <span className="h2" id="horizon-scanning" onClick={handleClick}>Horizon Scanning</span>
-            <img src={LogoHorizonScan} id="horizon-scanning" onClick={handleClick} />
-          </div>
-          <div className="col col-3 text-center">
-            <span className="h2">Scenarios</span>
-            <img src={LogoScenarios} />
-          </div>
-          <div className="col col-3 text-center">
-            <span className="h2">Visioning</span>
-            <img src={LogoVisioning} />
-          </div>
-          <div className="col col-3 text-center">
-            <span className="h2">SWOT Analysis</span>
-            <img src={LogoSwotAnalysis} />
-          </div>
-        </div >
+        <Pathway
+          pathway={DemoPathway}
+          handleClick={handleClick}
+        />
       </div>
     );
   } else if (mainView == "horizon-scanning") {
@@ -109,6 +102,15 @@ function App() {
   } else if (mainView == "driver-mapping") {
     return (
       <DriverMapping
+        scans={scans}
+        handleClick={handleClick}
+        modalShow={show}
+        modalHandleClose={handleClose}
+        modalThisScan={thisScan} />
+    );
+  } else if (mainView == "visioning") {
+    return (
+      <Visioning
         scans={scans}
         handleClick={handleClick}
         modalShow={show}

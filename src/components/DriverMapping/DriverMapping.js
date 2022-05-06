@@ -10,6 +10,7 @@ import { BoxRow } from '../BoxRow/BoxRow.js'
 import parse from 'html-react-parser';
 
 import LogoDriverMapping from '../../assets/images/driver-mapping-logo.png'
+import LogoVisioning from '../../assets/images/visioning-logo.png'
 import update from 'immutability-helper'
 import { useCallback, useState } from 'react'
 import { useDrop } from 'react-dnd'
@@ -85,6 +86,10 @@ function buildStartingBoxes(scans, coords) {
 }
 
 const DriverMapping = ({ scans, handleClick, modalShow, modalHandleClose, modalThisScan, passedCoords }) => {
+    for (let i in scans) {
+        scans[i]["horizontal"] = 6;
+        scans[i]["vertical"] = 6;
+    }
     const [coords, setCoords] = useState([]);
     const [formattedCoords, setFormattedCoords] = useState("");
 
@@ -153,15 +158,13 @@ const DriverMapping = ({ scans, handleClick, modalShow, modalHandleClose, modalT
         setCoords(coords);
         let newFormattedCoords = "";
         for (let i in scans) {
-            console.log(i);
-            console.log(coords[i])
             let coord = coords[i];
-            console.log(scans[i]["title"]);
             let scanTitle = scans[i]["title"];
             let scanHorizontal = Math.round((coord["left"] + 50) / 75);
             let scanVertical = Math.round((coord["top"] + 45) / 55);
-            console.log(`${scanTitle}: ${scanHorizontal}, ${scanVertical}<br />`);
             newFormattedCoords += `${scanTitle}: Certainty of outcome: ${scanHorizontal}, importance of outcome to policy ${11 - scanVertical}<br />`;
+            scans[i]["horizontal"] = scanHorizontal;
+            scans[i]["vertical"] = scanVertical;
         };
         setFormattedCoords(newFormattedCoords);
     }
@@ -180,6 +183,12 @@ const DriverMapping = ({ scans, handleClick, modalShow, modalHandleClose, modalT
                         <Container hideSourceOnDrag={false} scans={scans} passedCoords={coords} />
                     </DndProvider>
                     {parse(formattedCoords)}
+                    <div className="continue-to">
+                        <p>When you're ready, continue to</p>
+                        <span className="align-middle" id="visioning" onClick={handleClick}>
+                            <img src={LogoVisioning} style={{ width: "50px", height: "50px" }} id="visioning" />Visioning
+                        </span>
+                    </div>
                 </div>
                 <div className="col col-3">
                     <ScanModal
